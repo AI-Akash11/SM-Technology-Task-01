@@ -1,1 +1,82 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@theme {
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Sora", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Theme Setup */
+[data-theme="light"] {
+  /* Background Colors */
+  --color-base-100: #FFFFFF;
+  --color-base-200: #000000;
+  --color-base-300: #F5F5F5;
+
+  /* Text Colors */
+  --color-base-content: #000000;
+
+  /* Primary Action */
+  --color-primary: #000000;
+  --color-primary-content: #FFFFFF;
+
+  /* Light Sections */
+  --color-secondary: #F9F9F9;
+  --color-secondary-content: #000000;
+
+  /* Accents & Highlights */
+  --color-accent: #000000;
+  --color-accent-content: #FFFFFF;
+
+  /* Neutral/Muted Elements */
+  --color-neutral: #666666;
+  --color-neutral-content: #000000;
+  
+  /* Success, Warning, Error */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+/* Global Base Styles */
+@layer base {
+  body {
+    @apply font-body antialiased;
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold text-black tracking-tight;
+  }
+
+  h1 {
+    @apply text-5xl sm:text-6xl leading-tight;
+  }
+
+  h2 {
+    @apply text-4xl sm:text-5xl leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-4xl leading-snug;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl leading-snug;
+  }
+
+  p {
+    @apply text-base leading-relaxed text-gray-700;
+  }
+
+  a {
+    @apply transition-colors duration-300 hover:text-black;
+  }
+
+  button {
+    @apply transition-all duration-300 border border-black;
+  }
+}
