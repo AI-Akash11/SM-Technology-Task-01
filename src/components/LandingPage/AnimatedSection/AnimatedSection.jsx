@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PARTICLE_GAP = 5;
 const RADIUS = 150;
@@ -30,13 +34,11 @@ class Particle {
       const f = (RADIUS - d) / RADIUS;
       
       if (animationType === 'blackhole') {
-        /* Radial scatter: particles push straight outward from the cursor perfectly linearly ('blackhole' feel) */
         const nx = dx / d;
         const ny = dy / d;
         this.vx += nx * f * FORCE;
         this.vy += ny * f * FORCE;
       } else {
-        /* Explosive scatter: particles choose a randomized direction on hover */
         const angle = Math.random() * Math.PI * 2;
         this.vx += Math.cos(angle) * f * FORCE;
         this.vy += Math.sin(angle) * f * FORCE;
@@ -65,7 +67,6 @@ class Particle {
 
 const paintText = (ctx, W, H) => {
   ctx.clearRect(0, 0, W, H);
-  /* Responsive font sizing — keeps FLOKA from breaking constraints on mobile while huge on desktop */
   const fontSize = Math.min(W * 0.22, 320);
   ctx.fillStyle = '#ffffff';
   ctx.font = `800 ${fontSize}px Sora, Inter, sans-serif`;
@@ -145,7 +146,6 @@ const ParticleCanvas = ({ paintFn, animationType = 'scatter', createColor }) => 
           if (data[(y * W + x) * 4 + 3] > 128) {
             const b = 0.35 + Math.random() * 0.65;
             const sz = 0.7 + Math.random() * 1.8;
-            /* Default fallback to white if no createColor prop passed */
             const color = createColor ? createColor(b) : `rgba(255,255,255,${b.toFixed(2)})`;
             psRef.current.push(new Particle(x, y, color, sz, Math.random()));
           }
@@ -213,11 +213,45 @@ const ParticleCanvas = ({ paintFn, animationType = 'scatter', createColor }) => 
 };
 
 const AnimatedSection = () => {
+  const sectionRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      /* Pincer animation: left block comes from left, right block from right triggering on scroll */
+      gsap.from(leftRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%', // triggers when the section hits bottom quarter of viewport
+        },
+        x: -200,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out'
+      });
+
+      gsap.from(rightRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+        },
+        x: 200,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        delay: 0.15 // slight delay so they don't hit perfectly at the same time
+      });
+    }, sectionRef); // scoping to component
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="w-full bg-[#0d0d0d] flex flex-col lg:flex-row h-auto lg:h-[700px] overflow-hidden select-none rounded-b-2xl">
+    <section ref={sectionRef} className="w-full bg-[#0d0d0d] flex flex-col lg:flex-row h-auto lg:h-[700px] overflow-hidden select-none rounded-b-2xl">
       
       {/* Left side: FLOKA Text Animation (70%) */}
-      <div className="relative w-full lg:w-[70%] h-[350px] md:h-[450px] lg:h-full">
+      <div ref={leftRef} className="relative w-full lg:w-[70%] h-[350px] md:h-[450px] lg:h-full">
         <ParticleCanvas 
           paintFn={paintText} 
           animationType="blackhole"
@@ -229,7 +263,7 @@ const AnimatedSection = () => {
       </div>
 
       {/* Right side: Butterfly/Bird Animation (30%) */}
-      <div className="relative w-full lg:w-[30%] h-[300px] md:h-[400px] lg:h-full border-t lg:border-t-0 lg:border-l border-white/10">
+      <div ref={rightRef} className="relative w-full lg:w-[30%] h-[300px] md:h-[400px] lg:h-full border-t lg:border-t-0 lg:border-l border-white/10">
         <ParticleCanvas 
           paintFn={paintShape} 
           animationType="scatter"
