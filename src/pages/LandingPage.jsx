@@ -16,14 +16,14 @@ const LandingPage = () => {
       <ApproachSection/>
       <PortfolioSection/>
       <ExpertiseSection/>
-      <RewardsSection/>
       <FunfactsSection/>
       <HappyUsersSection/>
+      <FeedbacksSection/>
+      <GetInTouch/>
+      <RewardsSection/>
       <AvengersSection/>
       <FAQSection/>
-      <FeedbacksSection/>
       <InsightsSection/>
-      <GetInTouch/>
     </div>
   );
 };
