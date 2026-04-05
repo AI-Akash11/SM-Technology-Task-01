@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Navbar = () => {
+  const [visible, setVisible]   = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const current = window.scrollY;
+      setScrolled(current > 60);
+      // Hide when scrolling DOWN, reveal when scrolling UP
+      if (current > lastScrollY.current && current > 80) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+      lastScrollY.current = current;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
 
-    <div className="drawer drawer-start relative z-50">
+    <div
+      className={`drawer drawer-start fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out ${
+        visible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       {/* Drawer Toggle Checkbox */}
       <input id="mobile-sidebar" type="checkbox" className="drawer-toggle" />
 
       {/* Main Navbar Bar */}
-      <div className="drawer-content flex flex-col">
-        <nav className="w-full h-20 flex items-center justify-between xl:px-[15px]  bg-transparent z-50">
+      <div
+        className={`drawer-content flex flex-col transition-all duration-300 ${
+          scrolled ? 'bg-white/95 backdrop-blur-md shadow-[0_2px_16px_rgba(0,0,0,0.07)]' : 'bg-transparent'
+        }`}
+      >
+        <nav className="w-full h-16 flex items-center justify-between px-5 xl:px-8 z-50">
           {/* Logo */}
           <div className="flex items-center">
             <a href="/">
@@ -100,7 +128,7 @@ const Navbar = () => {
       </div>
 
       {/* Sidebar View (Drawer Side) */}
-      <div className="drawer-side z-[100]">
+      <div className="drawer-side z-100">
         {/* overlay layer */}
         <label
           htmlFor="mobile-sidebar"
