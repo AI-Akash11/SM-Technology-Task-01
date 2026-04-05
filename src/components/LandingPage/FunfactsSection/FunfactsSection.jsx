@@ -77,7 +77,7 @@ const FunfactsSection = () => {
                   
                   <p className="text-[14px] text-gray-500 leading-[1.6]">We offer end-to-end creative solutions that make brands unforgettable.</p>
                   
-                  <button className="flex items-center gap-3 mt-6 lg:mt-auto group w-max">
+                  <button className="flex items-center gap-3 mt-6 lg:mt-auto border-none group w-max">
                     <span className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 5v14"/><path d="M5 12h14"/>
