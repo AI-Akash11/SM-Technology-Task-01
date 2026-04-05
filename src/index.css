@@ -44,7 +44,7 @@
 @layer base {
   body {
     @apply font-body antialiased;
-    background-color: var(--color-base-100);
+    background-color: var(--color-base-300);
     color: var(--color-base-content);
   }
   

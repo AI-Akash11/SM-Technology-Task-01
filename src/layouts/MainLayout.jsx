@@ -5,7 +5,7 @@ import Footer from '../components/Shared/Footer';
 
 const MainLayout = () => {
     return (
-        <div>
+        <div className='mx-[15px] xl:mx-5'>
             <Navbar/>
             <LandingPage/>
             <Footer/>
