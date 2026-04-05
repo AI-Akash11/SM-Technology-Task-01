@@ -31,13 +31,17 @@ const ApproachHeading = () => {
                 />
             </div>
             {/* text */}
-            <div className="mt-8">
-                <p className="text-[#666666] font-semibold sm:text-[19px] leading-snug">We design every project with long-term success in mind.</p>
+            <div className="mt-5 lg:mt-6">
+                <p className="text-[#666666] font-medium text-[14px] sm:text-[15px] leading-relaxed max-w-[240px]">We design every project with long-term success in mind.</p>
             </div>
             </div>
             {/* right side */}
-            <div className="col-span-7 lg:col-span-6 ml-0 lg:ml-10 mt-5 md:mt-0">
-                <p className="text-black font-semibold text-3xl md:text-4xl xl:text-5xl leading-tight">Our approach is straightforward — prioritizing functionality, speed, and clarity for solutions.</p>
+            <div className="col-span-2 sm:col-span-1 md:col-span-7 lg:col-span-7 mt-8 md:mt-0 lg:pl-10">
+                <h2 className="text-black font-medium text-[32px] md:text-[40px] lg:text-[44px] xl:text-[48px] leading-[1.2] tracking-tight max-w-[800px]">
+                    Our approach is straightforward— <br className="hidden md:block"/> 
+                    prioritizing functionality, speed, and <br className="hidden md:block"/> 
+                    clarity for solutions.
+                </h2>
             </div>
 
         </div>
