@@ -9,10 +9,12 @@ import FAQSection from "../components/LandingPage/FAQSection/FAQSection";
 import FeedbacksSection from "../components/LandingPage/FeedbacksSection/FeedbacksSection";
 import InsightsSection from "../components/LandingPage/InsightsSection/InsightsSection";
 import GetInTouch from "../components/LandingPage/GetInTouchSection/GetInTouch";
+import BannerSection from "../components/LandingPage/BannerSection/BannerSection";
 
 const LandingPage = () => {
   return (
     <div className="bg-[#f5f5f5] min-h-screen">
+      <BannerSection/>
       <ApproachSection/>
       <PortfolioSection/>
       <ExpertiseSection/>
