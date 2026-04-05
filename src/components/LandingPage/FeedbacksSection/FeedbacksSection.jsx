@@ -5,7 +5,7 @@ import FeedbackCards from "./FeedbackCards";
 
 const FeedbacksSection = () => {
   return (
-    <section className="py-24 md:py-32 xl:py-40 bg-[#EDEDED]">
+    <section className="py-10 md:py-16 bg-[#f5f5f5]">
       <SectionContainer>
         <FeedbacksHeading />
         <FeedbackCards />

@@ -1,4 +1,7 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 
 const FeedbackCards = () => {
   const testimonials = [
@@ -22,76 +25,91 @@ const FeedbackCards = () => {
     }
   ];
 
+  // Tripling the array ensures enough duplicates so Swiper can infinitely loop smoothly on all screen sizes 
+  const sliderData = [...testimonials, ...testimonials, ...testimonials];
+
+  const renderSmallCard = (item, hasButton) => (
+    <div className="bg-white rounded-[20px] p-6 lg:p-8 shadow-sm border border-black/5 group-hover:bg-[#0a0a0a] transition-all duration-500 shrink-0 flex items-center justify-between">
+       <div>
+         <h3 className="text-[16px] md:text-[17px] lg:text-[18px] font-heading font-semibold text-black group-hover:text-white mb-1 transition-colors duration-500">{item.name}</h3>
+         <p className="text-[12px] lg:text-[13px] text-[#888] font-medium transition-colors duration-500">{item.role}</p>
+       </div>
+       {hasButton && (
+         <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
+            <span className="w-1.5 h-1.5 bg-black group-hover:bg-white rounded-full transition-colors"></span>
+         </div>
+       )}
+    </div>
+  );
+
+  const renderBigCard = (item) => (
+    <div className="bg-white rounded-[20px] p-6 lg:p-8 shadow-sm border border-black/5 group-hover:bg-[#0a0a0a] transition-all duration-500 flex-1 flex flex-col justify-between">
+       <div>
+         <div className="flex gap-1 mb-6 text-[#FF8A00]">
+           {[...Array(5)].map((_, i) => (
+              <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+           ))}
+         </div>
+         <p className="text-[14px] md:text-[15px] lg:text-[16px] leading-[1.7] text-[#111] group-hover:text-white mb-10 font-medium transition-colors duration-500">
+           {item.text}
+         </p>
+       </div>
+       <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#aaa] group-hover:text-gray-400 transition-colors duration-500 mt-auto">
+         {item.tag}
+       </p>
+    </div>
+  );
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-      {/* Column 1 */}
-      <div className="flex flex-col gap-6">
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <h3 className="text-[20px] md:text-[24px] font-heading font-semibold text-black mb-1">{testimonials[0].name}</h3>
-           <p className="text-[12px] md:text-[14px] text-gray-500 font-medium mb-12 uppercase tracking-wide">{testimonials[0].role}</p>
-        </div>
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <div className="flex gap-1 mb-8 text-[#FF9900]">
-             {[...Array(5)].map((_, i) => (
-                <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-             ))}
-           </div>
-           <p className="text-[16px] md:text-[18px] lg:text-[22px] leading-relaxed text-black mb-12 font-medium">
-             {testimonials[0].text}
-           </p>
-           <p className="text-[11px] md:text-[12px] font-bold tracking-[0.2em] font-heading uppercase text-neutral/40">
-             {testimonials[0].tag}
-           </p>
-        </div>
-      </div>
+    <div className="w-full cursor-grab active:cursor-grabbing">
+      <Swiper
+        modules={[Autoplay]}
+        spaceBetween={16}
+        slidesPerView={1}
+        loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 16,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 16,
+          },
+        }}
+        className="pb-4"
+      >
+        {sliderData.map((item, index) => {
+          // Keep the visual masonry effect alternating based on even/odd.
+          const isFlipped = index % 2 !== 0;
+          const hasButton = index % 3 === 1; // Simulate the button on Julian's card
 
-      {/* Column 2 - Central Offset */}
-      <div className="flex flex-col gap-6 md:mt-24">
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <div className="flex gap-1 mb-8 text-[#FF9900]">
-             {[...Array(5)].map((_, i) => (
-                <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-             ))}
-           </div>
-           <p className="text-[16px] md:text-[18px] lg:text-[22px] leading-relaxed text-black mb-12 font-medium">
-             {testimonials[1].text}
-           </p>
-           <p className="text-[11px] md:text-[12px] font-bold tracking-[0.2em] font-heading uppercase text-neutral/40">
-             {testimonials[1].tag}
-           </p>
-        </div>
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <h3 className="text-[20px] md:text-[24px] font-heading font-semibold text-black mb-1">{testimonials[1].name}</h3>
-           <p className="text-[12px] md:text-[14px] text-gray-500 font-medium uppercase tracking-wide">{testimonials[1].role}</p>
-        </div>
-      </div>
-
-      {/* Column 3 */}
-      <div className="flex flex-col gap-6">
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <h3 className="text-[20px] md:text-[24px] font-heading font-semibold text-black mb-1">{testimonials[2].name}</h3>
-           <p className="text-[12px] md:text-[14px] text-gray-500 font-medium mb-12 uppercase tracking-wide">{testimonials[2].role}</p>
-        </div>
-        <div className="bg-white rounded-[40px] p-8 lg:p-10 shadow-sm border border-black/5 hover:shadow-2xl transition-all duration-700">
-           <div className="flex gap-1 mb-8 text-[#FF9900]">
-             {[...Array(5)].map((_, i) => (
-                <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-             ))}
-           </div>
-           <p className="text-[16px] md:text-[18px] lg:text-[22px] leading-relaxed text-black mb-12 font-medium">
-             {testimonials[2].text}
-           </p>
-           <p className="text-[11px] md:text-[12px] font-bold tracking-[0.2em] font-heading uppercase text-neutral/40">
-             {testimonials[2].tag}
-           </p>
-        </div>
-      </div>
+          return (
+            <SwiperSlide key={index} className="h-auto!">
+              <div className="flex flex-col gap-3 md:gap-4 h-full group">
+                {!isFlipped ? (
+                  <>
+                    {renderSmallCard(item, hasButton)}
+                    {renderBigCard(item)}
+                  </>
+                ) : (
+                  <>
+                    {renderBigCard(item)}
+                    {renderSmallCard(item, hasButton)}
+                  </>
+                )}
+              </div>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
     </div>
   );
 };
