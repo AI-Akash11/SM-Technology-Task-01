@@ -1,9 +1,29 @@
 import ApproachSection from "../components/LandingPage/ApproachSection/ApproachSection";
+import PortfolioSection from "../components/LandingPage/PortfolioSection/PortfolioSection";
+import ExpertiseSection from "../components/LandingPage/ExpertiseSection/ExpertiseSection";
+import FunfactsSection from "../components/LandingPage/FunfactsSection/FunfactsSection";
+import HappyUsersSection from "../components/LandingPage/HappyUsersSection/HappyUsersSection";
+import RewardsSection from "../components/LandingPage/RewardsSection/RewardsSection";
+import AvengersSection from "../components/LandingPage/AvengersSection/AvengersSection";
+import FAQSection from "../components/LandingPage/FAQSection/FAQSection";
+import FeedbacksSection from "../components/LandingPage/FeedbacksSection/FeedbacksSection";
+import InsightsSection from "../components/LandingPage/InsightsSection/InsightsSection";
+import GetInTouch from "../components/LandingPage/GetInTouchSection/GetInTouch";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className="bg-[#f5f5f5] min-h-screen">
       <ApproachSection/>
+      <PortfolioSection/>
+      <ExpertiseSection/>
+      <RewardsSection/>
+      <FunfactsSection/>
+      <HappyUsersSection/>
+      <AvengersSection/>
+      <FAQSection/>
+      <FeedbacksSection/>
+      <InsightsSection/>
+      <GetInTouch/>
     </div>
   );
 };
