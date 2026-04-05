@@ -3,7 +3,7 @@ import SectionContainer from "../../ui/SectionContainer";
 
 const GetInTouch = () => {
   return (
-    <div className="px-2 md:px-4 mb-20 md:mb-32 w-full">
+    <div className="px-2 md:px-4 mb-10 w-full">
       <section className="relative w-full bg-[#111] bg-[url('/get-in-touch-bg-img13.jpg')] bg-cover bg-center bg-no-repeat py-20 md:py-32 rounded-[20px] overflow-hidden">
         <div className="relative z-10">
           <SectionContainer>
