@@ -8,6 +8,7 @@ import AvengersSection from "../components/LandingPage/AvengersSection/AvengersS
 import FAQSection from "../components/LandingPage/FAQSection/FAQSection";
 import FeedbacksSection from "../components/LandingPage/FeedbacksSection/FeedbacksSection";
 import InsightsSection from "../components/LandingPage/InsightsSection/InsightsSection";
+import ScrollDivider from "../components/LandingPage/ScrollDivider/ScrollDivider";
 import GetInTouch from "../components/LandingPage/GetInTouchSection/GetInTouch";
 import BannerSection from "../components/LandingPage/BannerSection/BannerSection";
 
@@ -25,6 +26,7 @@ const LandingPage = () => {
       <RewardsSection/>
       <AvengersSection/>
       <FAQSection/>
+      <ScrollDivider/>
       <InsightsSection/>
     </div>
   );
