@@ -1,6 +1,41 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 const BannerSection = () => {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const cardRef = useRef(null);
+  const subtextRef = useRef(null);
+
+  useEffect(() => {
+    /* 
+      We use gsap.context to manage cleanup automatically. 
+      The initial delay of ~2.2s ensures the animation waits until the black Preloader curtain starts sliding up to reveal the hero section.
+    */
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 2.2 });
+
+      // Major typography sliding up from bottom
+      tl.from([titleRef.current, subtitleRef.current], {
+        y: 120,
+        opacity: 0,
+        duration: 1.4,
+        stagger: 0.15,
+        ease: 'power4.out',
+      })
+      // Card and small texts entering aggressively overlapping the end of the text
+      .from([cardRef.current, subtextRef.current], {
+        y: 80,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.15,
+        ease: 'power3.out',
+      }, "-=1.1"); 
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] xl:max-h-[900px] overflow-hidden rounded-t-2xl">
       
@@ -23,10 +58,16 @@ const BannerSection = () => {
 
       {/* Main Title */}
       <div className="absolute left-6 bottom-10 md:bottom-16 lg:left-12 xl:left-[6%] xl:bottom-16 z-10 flex flex-col pointer-events-none">
-        <h1 className="text-white text-[100px] sm:text-[130px] md:text-[150px] lg:text-[170px] xl:text-[220px] font-heading font-medium leading-[0.85] tracking-[-0.04em]">
+        <h1 
+          ref={titleRef} 
+          className="text-white text-[100px] sm:text-[130px] md:text-[150px] lg:text-[170px] xl:text-[220px] font-heading font-medium leading-[0.85] tracking-[-0.04em]"
+        >
           Floka
         </h1>
-        <span className="text-white/40 text-[56px] sm:text-[70px] md:text-[90px] lg:text-[110px] xl:text-[150px] font-heading font-medium mt-1 md:mt-2 xl:ml-40 leading-[0.85] tracking-[-0.04em]">
+        <span 
+          ref={subtitleRef} 
+          className="text-white/40 text-[56px] sm:text-[70px] md:text-[90px] lg:text-[110px] xl:text-[150px] font-heading font-medium mt-1 md:mt-2 xl:ml-40 leading-[0.85] tracking-[-0.04em]"
+        >
           Studio
         </span>
       </div>
@@ -35,7 +76,7 @@ const BannerSection = () => {
       <div className="absolute left-6 bottom-10 md:left-auto md:right-10 lg:right-12 xl:right-[8%] xl:bottom-[15%] flex flex-col items-start gap-5 z-20">
         
         {/* White Card */}
-        <div className="bg-white rounded-[24px] p-3.5 pr-8 flex items-center gap-5 shadow-2xl w-max">
+        <div ref={cardRef} className="bg-white rounded-[24px] p-3.5 pr-8 flex items-center gap-5 shadow-2xl w-max">
           <img 
             src="/image-men-behind-leafs.jpg" 
             alt="Almond D. Nelsi" 
@@ -63,7 +104,7 @@ const BannerSection = () => {
         </div>
 
         {/* Subtext */}
-        <div className="max-w-[280px] md:max-w-[320px]">
+        <div ref={subtextRef} className="max-w-[280px] md:max-w-[320px]">
           <p className="text-white font-semibold text-[14px] md:text-[15px] leading-snug">
             No cookie-cutter websites. No fluff.
           </p>
