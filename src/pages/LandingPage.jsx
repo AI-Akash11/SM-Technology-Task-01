@@ -11,11 +11,13 @@ import InsightsSection from "../components/LandingPage/InsightsSection/InsightsS
 import ScrollDivider from "../components/LandingPage/ScrollDivider/ScrollDivider";
 import GetInTouch from "../components/LandingPage/GetInTouchSection/GetInTouch";
 import BannerSection from "../components/LandingPage/BannerSection/BannerSection";
+import AnimatedSection from "../components/LandingPage/AnimatedSection/AnimatedSection";
 
 const LandingPage = () => {
   return (
     <div className="bg-[#f5f5f5] min-h-screen">
       <BannerSection/>
+      <AnimatedSection/>
       <ApproachSection/>
       <PortfolioSection/>
       <ExpertiseSection/>

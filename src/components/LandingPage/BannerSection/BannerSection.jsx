@@ -2,7 +2,7 @@ import React from 'react';
 
 const BannerSection = () => {
   return (
-    <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] xl:max-h-[900px] overflow-hidden rounded-2xl">
+    <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] xl:max-h-[900px] overflow-hidden rounded-t-2xl">
       
       {/* Background Video */}
        <div className="absolute inset-0 w-full h-full">

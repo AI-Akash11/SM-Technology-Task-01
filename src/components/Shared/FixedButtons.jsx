@@ -35,7 +35,7 @@ const FixedButtons = () => {
       <a
         href="#"
         aria-label="Buy on Envato"
-        className="fixed bottom-10 left-10 z-50 flex items-center gap-2.5 bg-[#111] hover:bg-[#222] transition-colors duration-300 rounded-full px-4 py-2.5 shadow-lg select-none"
+        className="fixed hidden bottom-10 left-10 z-50 md:flex items-center gap-2.5 bg-[#111] hover:bg-[#222] transition-colors duration-300 rounded-full px-4 py-2.5 shadow-lg select-none"
       >
         <span className="text-white text-[11px] font-bold tracking-[0.15em] uppercase whitespace-nowrap">
           Buy on
