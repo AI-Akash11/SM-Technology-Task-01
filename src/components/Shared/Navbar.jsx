@@ -89,11 +89,11 @@ const Navbar = () => {
             {/* Hamburger Button to open Drawer */}
             <label
               htmlFor="mobile-sidebar"
-              className="cursor-pointer drawer-button flex flex-col items-end gap-3 group"
+              className="cursor-pointer drawer-button flex flex-col items-end gap-2.5 group"
             >
-              <span className="w-9 h-[2px] bg-black block"></span>
-              <span className="w-7 h-[2px] bg-black block"></span>
-              <span className="w-9 h-[2px] bg-black block"></span>
+              <span className="w-8 h-[2px] bg-black block"></span>
+              <span className="w-6 h-[2px] bg-black block"></span>
+              <span className="w-8 h-[2px] bg-black block"></span>
             </label>
           </div>
         </nav>
