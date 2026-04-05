@@ -31,8 +31,8 @@ const ApproachHeading = () => {
                 />
             </div>
             {/* text */}
-            <div >
-                <p className="text-[#666666] font-semibold sm:text-lg">We design every project with long-term success in mind.</p>
+            <div className="mt-8">
+                <p className="text-[#666666] font-semibold sm:text-[19px] leading-snug">We design every project with long-term success in mind.</p>
             </div>
             </div>
             {/* right side */}
