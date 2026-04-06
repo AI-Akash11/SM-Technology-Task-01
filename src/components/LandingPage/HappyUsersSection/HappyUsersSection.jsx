@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionContainer from "../../ui/SectionContainer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const clients = [
   { id: 1, logo: '/logoipsum-icon8.svg' },
@@ -12,12 +16,48 @@ const clients = [
 ];
 
 const HappyUsersSection = () => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      
+      // Reveal the top section label
+      gsap.from(sectionRef.current.querySelectorAll('.section-label'), {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+      });
+
+      // Staggered reveal for the logo cards
+      gsap.from(sectionRef.current.querySelectorAll('.logo-card'), {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+        },
+        y: 80,
+        opacity: 0,
+        duration: 1.4,
+        stagger: 0.1,
+        ease: 'power3.out',
+        delay: 0.15
+      });
+      
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-20 md:py-28 bg-[#f5f5f5]">
+    <section ref={sectionRef} className="py-20 md:py-28 bg-[#f5f5f5]">
       <SectionContainer>
 
         {/* Section label Header */}
-        <div className="flex items-center justify-between mb-8 md:mb-12 px-2 md:px-4">
+        <div className="flex items-center justify-between mb-8 md:mb-12 px-2 md:px-4 section-label">
           <p className="text-[10px] md:text-[11px] font-semibold tracking-widest uppercase text-[#555]">Happy Users</p>
           <p className="text-[10px] md:text-[11px] font-medium tracking-widest text-[#888] uppercase hidden sm:block">
             ©2025 <span className="font-bold text-[#555]">CASE-THEMES™</span> STUDIO
@@ -29,7 +69,7 @@ const HappyUsersSection = () => {
           {/* Inner grid using 1px gap on a gray background to create perfect internal divider lines */}
           <div className="grid grid-cols-2 md:grid-cols-4 bg-gray-100 gap-px">
             {clients.map((client) => (
-              <div key={client.id} className="bg-white flex items-center justify-center p-8 md:p-12 lg:p-16 h-full aspect-4/3 md:aspect-auto hover:bg-[#fafafa] transition-colors duration-300">
+              <div key={client.id} className="logo-card bg-white flex items-center justify-center p-8 md:p-12 lg:p-16 h-full aspect-4/3 md:aspect-auto hover:bg-[#fafafa] transition-colors duration-300">
                 <img
                   src={client.logo}
                   alt="client logo"
@@ -39,7 +79,7 @@ const HappyUsersSection = () => {
             ))}
 
             {/* CTA tile (8th spot) */}
-            <div className="bg-white flex flex-col items-center justify-center p-8 md:p-12 h-full aspect-4/3 md:aspect-auto cursor-pointer group hover:bg-[#fafafa] transition-colors duration-300">
+            <div className="logo-card bg-white flex flex-col items-center justify-center p-8 md:p-12 h-full aspect-4/3 md:aspect-auto cursor-pointer group hover:bg-[#fafafa] transition-colors duration-300">
               <p className="text-black/40 text-[9px] xl:text-[10px] font-bold tracking-[0.15em] uppercase mb-2 leading-snug text-center">Next can be you.</p>
               <p className="text-black text-[11px] xl:text-[12px] font-bold tracking-widest uppercase text-center group-hover:text-black/60 transition-colors">Let's talk</p>
             </div>
