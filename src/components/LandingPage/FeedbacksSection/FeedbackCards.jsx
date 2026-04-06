@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FeedbackCards = () => {
+  const containerRef = useRef(null);
+
   const testimonials = [
     {
       name: "Nicolas K. Ellington",
@@ -27,6 +33,25 @@ const FeedbackCards = () => {
 
   // Tripling the array ensures enough duplicates so Swiper can infinitely loop smoothly on all screen sizes
   const sliderData = [...testimonials, ...testimonials, ...testimonials];
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Cards enter from the bottom
+      gsap.from(".swiper-slide", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+        y: 100,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        stagger: 0.1,
+        delay: 0.3
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
 
   const renderSmallCard = (item, hasButton) => (
     <div className="bg-white rounded-[20px] p-6 lg:p-8 shadow-sm border border-black/5 group-hover:bg-[#0a0a0a] transition-all duration-500 shrink-0 flex items-center justify-between">
@@ -73,7 +98,7 @@ const FeedbackCards = () => {
   );
 
   return (
-    <div className="w-full cursor-grab active:cursor-grabbing">
+    <div ref={containerRef} className="w-full cursor-grab active:cursor-grabbing overflow-hidden pt-4 -mt-4">
       <Swiper
         modules={[Autoplay]}
         spaceBetween={16}
