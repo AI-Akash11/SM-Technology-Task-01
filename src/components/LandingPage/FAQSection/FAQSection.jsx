@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import SectionContainer from "../../ui/SectionContainer";
 import { BsPlus, BsDash } from "react-icons/bs";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const faqs = [
   {
@@ -162,9 +163,28 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
 /* ---------- Main FAQ Section ---------- */
 const FAQSection = () => {
   const [openId, setOpenId] = useState(1);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      // Heading slides in from the right
+      gsap.from(".faq-heading", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+        x: 100,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out'
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="py-16 md:py-24 w-full bg-[#f8f8f8]">
+    <section ref={containerRef} className="py-16 md:py-24 w-full bg-[#f8f8f8] overflow-hidden">
       <SectionContainer>
         {/* Top header: Title above horizontal line */}
         <div className="mb-10 md:mb-14">
@@ -200,7 +220,7 @@ const FAQSection = () => {
 
           {/* Right Column: heading + accordion */}
           <div className="md:col-span-7 md:col-start-6 flex flex-col">
-            <h2 className="text-[34px] md:text-[40px] lg:text-[48px] font-heading font-medium text-[#111] leading-[1.1] tracking-tight mb-10 md:mb-12">
+            <h2 className="faq-heading text-[34px] md:text-[40px] lg:text-[48px] font-heading font-medium text-[#111] leading-[1.1] tracking-tight mb-10 md:mb-12">
               Have more questions?
               <br /> We've answers.
             </h2>
