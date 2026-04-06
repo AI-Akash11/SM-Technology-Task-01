@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionContainer from "../../ui/SectionContainer";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const GetInTouch = () => {
+  const formCardRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Subtle float-in revealing animation for the right side white form card
+      gsap.from(formCardRef.current, {
+        scrollTrigger: {
+          trigger: formCardRef.current,
+          start: 'top 85%',
+        },
+        y: 40,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        delay: 0.1
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="px-2 md:px-4 mb-10 w-full">
       <section className="relative w-full bg-[#111] bg-[url('/get-in-touch-bg-img13.jpg')] bg-cover bg-center bg-no-repeat py-20 md:py-32 rounded-[20px] overflow-hidden">
@@ -51,7 +76,7 @@ const GetInTouch = () => {
               </div>
 
               {/* Right Form Card */}
-              <div className="w-full lg:w-[45%] xl:w-[40%] bg-white rounded-[32px] p-8 md:p-12 shadow-2xl">
+              <div ref={formCardRef} className="w-full lg:w-[45%] xl:w-[40%] bg-white rounded-[32px] p-8 md:p-12 shadow-2xl">
                 <h3 className="text-xl md:text-[22px] font-heading font-semibold text-black mb-8">
                   Have a project in mind?
                 </h3>
