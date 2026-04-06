@@ -1,11 +1,78 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ApproachContent = () => {
+  const containerRef = useRef(null);
+  const leftCardRef = useRef(null);
+  const centerCardRef = useRef(null);
+  const rightColumnRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Left card enters from the left
+      gsap.from(leftCardRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+        x: -150,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+      });
+
+      // Center massive card enters deeply from the bottom
+      gsap.from(centerCardRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+        y: 150,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        delay: 0.15
+      });
+
+      // Right stacked column enters from the right
+      gsap.from(rightColumnRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+        x: 150,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        delay: 0.3
+      });
+
+      // All texts across the section also appear from the right staggered
+      gsap.from(containerRef.current.querySelectorAll('span, p'), {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        },
+        x: 50,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        stagger: 0.05,
+        delay: 0.4
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-7 items-stretch">
+    <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-7 items-stretch">
       
       {/*LEFT CARD */}
-      <div className="order-1 md:order-1 lg:order-1 lg:col-span-3 bg-white rounded-[32px] p-7 xl:p-9 flex flex-col shadow-[0_4px_30px_rgba(0,0,0,0.03)] w-full h-full">
+      <div ref={leftCardRef} className="order-1 md:order-1 lg:order-1 lg:col-span-3 bg-white rounded-[32px] p-7 xl:p-9 flex flex-col shadow-[0_4px_30px_rgba(0,0,0,0.03)] w-full h-full">
         <div>
           <div className="flex items-start mt-2">
             <span className="text-[70px] xl:text-[85px] leading-[0.85] font-heading font-medium tracking-tight text-black">
@@ -36,7 +103,7 @@ const ApproachContent = () => {
       </div>
 
       {/* CENTER CARD  */}
-      <div className="order-3 md:order-3 lg:order-2 md:col-span-2 lg:col-span-6 flex flex-col relative pt-6 md:pt-10 min-h-[440px] lg:min-h-0 w-full h-full">
+      <div ref={centerCardRef} className="order-3 md:order-3 lg:order-2 md:col-span-2 lg:col-span-6 flex flex-col relative pt-6 md:pt-10 min-h-[440px] lg:min-h-0 w-full h-full">
         <div className="absolute inset-x-0 bottom-0 top-6 md:top-10 bg-[#0a0a0a] rounded-[32px] z-0"></div>
         
         <div className="relative z-10 flex-1 flex flex-col h-full w-full pb-10">
@@ -68,7 +135,7 @@ const ApproachContent = () => {
       </div>
 
       {/* RIGHT COLUMN (STACKED CARDS) */}
-      <div className="order-2 md:order-2 lg:order-3 md:col-span-1 lg:col-span-3 flex flex-col gap-5 md:gap-6 w-full h-full">
+      <div ref={rightColumnRef} className="order-2 md:order-2 lg:order-3 md:col-span-1 lg:col-span-3 flex flex-col gap-5 md:gap-6 w-full h-full">
         
         {/* Right Top Card */}
         <div className="bg-white rounded-[32px] p-7 xl:p-9 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex-1 flex flex-col justify-between h-full">

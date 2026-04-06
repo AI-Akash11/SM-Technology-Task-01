@@ -1,8 +1,61 @@
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const ApproachHeading = () => {
+    const containerRef = useRef(null);
+    const leftRef = useRef(null);
+    const rightRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(leftRef.current, {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top 80%',
+                },
+                x: -150,
+                opacity: 0,
+                duration: 1.4,
+                ease: 'power3.out',
+            });
+
+            gsap.from(rightRef.current, {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top 80%',
+                },
+                x: 150,
+                opacity: 0,
+                duration: 1.4,
+                ease: 'power3.out',
+                delay: 0.15
+            });
+
+            // Inner Texts also stagger in from the right
+            gsap.from(containerRef.current.querySelectorAll('p, h2, text'), {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: 'top 80%',
+                },
+                x: 80,
+                opacity: 0,
+                duration: 1.4,
+                ease: 'power3.out',
+                stagger: 0.1,
+                delay: 0.2
+            });
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <div className="grid grid-cols-2 md:grid-cols-10 items-center">
+        <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-10 items-center">
             {/* left side */}
-            <div className="col-span-2 sm:col-span-1 md:col-span-3 lg:col-span-3 mr-20">
+            <div ref={leftRef} className="col-span-2 sm:col-span-1 md:col-span-3 lg:col-span-3 mr-20">
                 {/* floating icon */}
             <div className="relative flex items-center justify-center w-[110px] h-[110px]">
                 
