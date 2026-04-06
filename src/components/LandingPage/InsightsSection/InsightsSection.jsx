@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionContainer from "../../ui/SectionContainer";
 import { BsArrowDownRight } from "react-icons/bs";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const InsightsSection = () => {
+  const containerRef = useRef(null);
+
   const posts = [
     {
       id: 1,
@@ -33,8 +39,25 @@ const InsightsSection = () => {
   // Tripling for seamless loop Slider
   const sliderData = [...posts, ...posts, ...posts];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Isolate animation only to the main right-sliding header text
+      gsap.from(".insights-header-text", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+        x: 100,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out'
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-20 md:py-24 bg-[#f8f8f8]">
+    <section ref={containerRef} className="py-20 md:py-24 bg-[#f8f8f8] overflow-hidden">
       <SectionContainer>
         
         {/* Header */}
@@ -42,7 +65,7 @@ const InsightsSection = () => {
           <p className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] font-heading uppercase text-black/40 mb-4">
             INSIGHTS
           </p>
-          <h2 className="text-[28px] md:text-[36px] lg:text-[42px] leading-[1.15] font-heading font-medium text-[#111] tracking-tight">
+          <h2 className="insights-header-text text-[28px] md:text-[36px] lg:text-[42px] leading-[1.15] font-heading font-medium text-[#111] tracking-tight">
             Company blog & updates
           </h2>
         </div>

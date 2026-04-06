@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   FaFacebookF,
   FaXTwitter,
@@ -7,11 +9,14 @@ import {
 } from "react-icons/fa6";
 import { BsArrowRight } from "react-icons/bs";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Footer = () => {
+  const containerRef = useRef(null);
   const circleRef = useRef(null);
 
-  // Rotate the subtle text circle relative to window scroll position
   useEffect(() => {
+    // Rotate the subtle text circle relative to window scroll position
     const handleScroll = () => {
       if (circleRef.current) {
         circleRef.current.style.transform = `rotate(${window.scrollY * 0.15}deg)`;
@@ -19,11 +24,29 @@ const Footer = () => {
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // GSAP ScrollTrigger for Let's Talk Now text
+    const ctx = gsap.context(() => {
+      gsap.from(".footer-heading", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+        y: -100,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out'
+      });
+    }, containerRef);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <footer className="w-full px-2 md:px-4 pb-6">
+    <footer ref={containerRef} className="w-full px-2 md:px-4 pb-6">
       <div className="w-full bg-[#0d0d0d] rounded-[20px] px-6 py-16 md:px-12 md:py-20 lg:p-24 relative overflow-hidden flex flex-col">
         {/* Right Side Sweeping Background Form */}
         <img
@@ -34,7 +57,7 @@ const Footer = () => {
 
         {/* Top Section - Let's Talk Now */}
         <div className="flex flex-col items-center justify-center relative mb-24 md:mb-32 lg:mb-40 z-10 w-full text-center">
-          <h2 className="font-heading font-medium tracking-tight text-[70px] sm:text-[100px] md:text-[140px] lg:text-[180px] xl:text-[220px] leading-[0.9] flex flex-col items-center">
+          <h2 className="footer-heading font-heading font-medium tracking-tight text-[70px] sm:text-[100px] md:text-[140px] lg:text-[180px] xl:text-[220px] leading-[0.9] flex flex-col items-center">
             <span className="text-[#686868] mr-auto md:mr-0">Let's</span>
             <span className="flex items-center gap-3 sm:gap-6 flex-wrap justify-center -ml-8 md:ml-0 mt-2 md:mt-0">
               <span className="text-[#686868]">talk</span>
