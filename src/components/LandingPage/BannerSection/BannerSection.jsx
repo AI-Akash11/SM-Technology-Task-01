@@ -57,36 +57,36 @@ const BannerSection = () => {
        </div>
 
       {/* Main Title */}
-      <div className="absolute left-6 bottom-10 md:bottom-16 lg:left-12 xl:left-[6%] xl:bottom-16 z-10 flex flex-col pointer-events-none">
+      <div className="absolute left-6 top-auto bottom-[240px] sm:bottom-[260px] md:bottom-10 lg:bottom-16 lg:left-12 xl:left-[6%] xl:bottom-16 z-10 flex flex-col pointer-events-none">
         <h1 
           ref={titleRef} 
-          className="text-white text-[100px] sm:text-[130px] md:text-[150px] lg:text-[170px] xl:text-[220px] font-heading font-medium leading-[0.85] tracking-[-0.04em]"
+          className="text-white text-[80px] sm:text-[90px] md:text-[110px] lg:text-[160px] xl:text-[220px] font-heading font-medium leading-[0.85] tracking-[-0.04em]"
         >
           Floka
         </h1>
         <span 
           ref={subtitleRef} 
-          className="text-white/40 text-[56px] sm:text-[70px] md:text-[90px] lg:text-[110px] xl:text-[150px] font-heading font-medium mt-1 md:mt-2 xl:ml-40 leading-[0.85] tracking-[-0.04em]"
+          className="text-white/40 text-[56px] sm:text-[64px] md:text-[80px] lg:text-[100px] xl:text-[150px] font-heading font-medium mt-1 md:mt-2 xl:ml-40 leading-[0.85] tracking-[-0.04em]"
         >
           Studio
         </span>
       </div>
 
       {/* Right Floating Content */}
-      <div className="absolute left-6 bottom-10 md:left-auto md:right-10 lg:right-12 xl:right-[8%] xl:bottom-[15%] flex flex-col items-start gap-5 z-20">
+      <div className="absolute left-6 bottom-8 md:left-auto md:right-8 lg:right-12 xl:right-[8%] xl:bottom-[15%] flex flex-col items-start gap-4 md:gap-5 z-20">
         
         {/* White Card */}
-        <div ref={cardRef} className="bg-white rounded-[24px] p-3.5 pr-8 flex items-center gap-5 shadow-2xl w-max">
+        <div ref={cardRef} className="bg-white rounded-[24px] p-3.5 pr-8 flex items-center gap-4 md:gap-5 shadow-2xl w-max">
           <img 
             src="/image-men-behind-leafs.jpg" 
             alt="Almond D. Nelsi" 
-            className="w-[84px] h-[84px] md:w-[94px] md:h-[94px] rounded-[16px] object-cover" 
+            className="w-[74px] h-[74px] md:w-[94px] md:h-[94px] rounded-[16px] object-cover" 
           />
           <div className="flex flex-col space-y-1">
             <span className="text-[9px] md:text-[10px] font-bold text-gray-400 tracking-[0.15em] uppercase">
               Head of Idea
             </span>
-            <span className="text-[18px] md:text-[20px] font-semibold text-black leading-none tracking-tight">
+            <span className="text-[17px] md:text-[20px] font-semibold text-black leading-none tracking-tight">
               Almond D. Nelsi
             </span>
             <button className="flex items-center gap-3 mt-2 group w-max border-none">
@@ -104,11 +104,11 @@ const BannerSection = () => {
         </div>
 
         {/* Subtext */}
-        <div ref={subtextRef} className="max-w-[280px] md:max-w-[320px]">
-          <p className="text-white font-semibold text-[14px] md:text-[15px] leading-snug">
+        <div ref={subtextRef} className="max-w-[260px] md:max-w-[300px]">
+          <p className="text-white font-semibold text-[13px] md:text-[15px] leading-snug">
             No cookie-cutter websites. No fluff.
           </p>
-          <p className="text-white/70 text-[13px] md:text-[14px] mt-2 leading-[1.6]">
+          <p className="text-white/70 text-[12px] md:text-[14px] mt-1.5 leading-[1.6]">
             Just real tools and smart strategies to grow your business and elevate your brand.
           </p>
         </div>
