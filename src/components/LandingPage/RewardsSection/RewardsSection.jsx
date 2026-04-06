@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionContainer from "../../ui/SectionContainer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const awards = [
   { title: 'BEST DESIGNER AWARDS', company: 'AWWWARDS', year: '2025' },
@@ -10,20 +14,55 @@ const awards = [
 ];
 
 const RewardsSection = () => {
+  const containerRef = useRef(null);
   const circleRef = useRef(null);
 
   useEffect(() => {
+    // Vanilla JS listener for continuous rotation without polluting GSAP main loop
     const handleScroll = () => {
       if (circleRef.current) {
         circleRef.current.style.transform = `rotate(${window.scrollY * 0.15}deg)`;
       }
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const ctx = gsap.context(() => {
+      // 1. Text elements slide from the right
+      gsap.from(".reward-text", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 85%',
+        },
+        x: 80,
+        opacity: 0,
+        duration: 1.4,
+        stagger: 0.15,
+        ease: 'power3.out'
+      });
+
+      // 2. Award rows stagger up from the bottom
+      gsap.from(".award-row", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 75%',
+        },
+        y: 80,
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        stagger: 0.1,
+        delay: 0.2
+      });
+    }, containerRef);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      ctx.revert();
+    }
   }, []);
 
   return (
-    <section className="py-16 w-full bg-[#f4f4f5]">
+    <section ref={containerRef} className="py-16 w-full bg-[#f4f4f5] overflow-hidden">
       <SectionContainer>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           
@@ -32,14 +71,14 @@ const RewardsSection = () => {
              <div className="rounded-[20px] overflow-hidden w-full aspect-square max-w-[280px] xl:max-w-[320px] mb-6 shadow-sm">
                  <img src="/rewards-img12.jpg" alt="Get Rewards" className="w-full h-full object-cover" />
              </div>
-             <p className="text-[12px] font-semibold tracking-wide uppercase text-[#111]">GET REWARDS</p>
+             <p className="reward-text text-[12px] font-semibold tracking-wide uppercase text-[#111]">GET REWARDS</p>
           </div>
 
           {/* Right Column */}
-          <div className="md:col-span-8 md:col-start-5 flex flex-col">
+          <div className="md:col-span-8 md:col-start-5 flex flex-col pt-6 md:pt-0">
              
              {/* Circular SVG Badge Container */}
-             <div className="relative w-[80px] h-[80px] mb-8">
+             <div className="reward-text relative w-[80px] h-[80px] mb-8">
                 {/* The SVG has white fills — invert makes them dark on light bg */}
                 <img 
                   ref={circleRef}
@@ -55,17 +94,17 @@ const RewardsSection = () => {
                 </div>
              </div>
 
-             <h2 className="text-[28px] md:text-[38px] lg:text-[44px] font-heading font-medium leading-[1.2] tracking-tight text-[#111] mb-12 lg:mb-20 pr-4">
+             <h2 className="reward-text text-[28px] md:text-[38px] lg:text-[44px] font-heading font-medium leading-[1.2] tracking-tight text-[#111] mb-12 lg:mb-20 pr-4">
                Driven by passion and grounded in expertise, our team turns bold ideas into reality, leading the way in creative innovation.
              </h2>
 
              {/* Awards List */}
              <div className="flex flex-col border-t border-black/10">
                 {awards.map((award, i) => (
-                   <div key={i} className="grid grid-cols-[1.5fr_1fr_auto] md:grid-cols-[2fr_1fr_1fr] gap-4 py-6 border-b border-black/10 items-center group cursor-pointer hover:bg-black/5 transition-colors px-2">
-                      <h3 className="text-[11px] md:text-[12px] font-semibold tracking-wide text-[#111] uppercase w-max pr-4">{award.title}</h3>
-                      <span className="text-[11px] md:text-[12px] font-medium text-black/50 uppercase md:text-left text-right">{award.company}</span>
-                      <span className="text-[11px] md:text-[12px] font-medium text-black/40 text-right">{award.year}</span>
+                   <div key={i} className="award-row grid grid-cols-[1.5fr_1fr_auto] md:grid-cols-[2fr_1fr_1fr] gap-4 py-6 border-b border-black/10 items-center group cursor-pointer hover:bg-white transition-colors duration-500 px-4 -mx-4 rounded-2xl">
+                      <h3 className="text-[11px] md:text-[12px] font-semibold tracking-wide text-[#111] uppercase w-max pr-4 group-hover:translate-x-3 transition-transform duration-500">{award.title}</h3>
+                      <span className="text-[11px] md:text-[12px] font-medium text-black/50 group-hover:text-black/80 uppercase md:text-left text-right transition-colors duration-500">{award.company}</span>
+                      <span className="text-[11px] md:text-[12px] font-medium text-black/40 text-right group-hover:-translate-x-2 transition-transform duration-500">{award.year}</span>
                    </div>
                 ))}
              </div>
