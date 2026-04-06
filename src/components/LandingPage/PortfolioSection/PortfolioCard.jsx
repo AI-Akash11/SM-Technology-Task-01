@@ -60,7 +60,7 @@ const PortfolioCard = ({ title, year, tags, image, logo, isLarge }) => {
     >
 
       {/* Image Container */}
-      <div className={`relative w-full overflow-hidden ${isLarge ? 'aspect-[16/7]' : 'aspect-4/3'}`}>
+      <div className={`relative w-full overflow-hidden ${isLarge ? 'aspect-16/7' : 'aspect-4/3'}`}>
 
         {/* The Image (Controlled exclusively by GSAP to prevent CSS transition conflict) */}
         <div className="absolute inset-0 w-full h-full will-change-transform">

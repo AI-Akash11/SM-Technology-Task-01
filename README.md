@@ -1,16 +1,75 @@
-# React + Vite
+# Floka Landing Page Replica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**🔗 Live Demo: [https://floka-zeta.vercel.app/](https://floka-zeta.vercel.app/)**
 
-Currently, two official plugins are available:
+A pixel-perfect, high-fidelity replication of the Floka OnePage landing page. This project demonstrates advanced front-end development skills, focusing on semantic HTML, complex modern CSS layouts, and intricate scroll-triggered animations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tech Stack
 
-## React Compiler
+- **React 19** - UI Library
+- **Vite** - Fast local development server and bundler
+- **Tailwind CSS 4** - Utility-first styling framework
+- **DaisyUI** - Tailwind CSS UI components
+- **GSAP (GreenSock Animation Platform)** - Complex and scroll-triggered animations
+- **Lenis** - Performant smooth scrolling
+- **Swiper** - Touch-enabled carousels and sliders
+- **React Icons** - Vector icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **Pixel-Perfect UI:** High-fidelity visual replication focusing on typography, spacing, and hover interactions.
+- **Responsive Layout:** Adapts flawlessly to all screen sizes (mobile, tablet, and desktop).
+- **Smooth Scrolling:** Integrated Lenis for a premium, buttery-smooth scrolling experience.
+- **Scroll-Triggered Animations:** Cohesive component entrance and parallax effects powered by GSAP.
+- **Complete Sections:** Includes Hero Banner, Team (Avengers), FAQ, Insights, Feedback/Testimonials, and Get in Touch portions.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Getting Started
+
+### Prerequisites
+
+Ensure you have Node.js installed on your machine.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   ```
+
+2. Navigate into the project directory:
+   ```bash
+   cd Floka
+   ```
+
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the App
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173/`.
+
+### Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+You can then preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## 📝 License
+
+This project was built for demonstration and task-completion purposes.

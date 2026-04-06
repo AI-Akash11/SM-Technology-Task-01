@@ -19,7 +19,7 @@ const ExpertiseSection = () => {
             {/* HIRE US TODAY button */}
             <div className="flex justify-start mt-10 md:mt-12 mb-8 md:mb-10 pl-2">
               <button className="group flex border-none items-center gap-4 text-white font-semibold text-[11px] md:text-[12px] tracking-[0.2em] uppercase hover:opacity-70 transition-opacity duration-300">
-                <span className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0">
+                <span className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <svg
                     width="18"
                     height="18"
